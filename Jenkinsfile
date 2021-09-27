@@ -1,11 +1,8 @@
 pipeline {
-  agent any
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('nischaybl18-dockerhub')
   }
+  agent any
   stages {
     stage('Build') {
       steps {
