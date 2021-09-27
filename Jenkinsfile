@@ -1,30 +1,16 @@
-pipeline {
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('nischaybl18-dockerhub')
+node {
+    
+  stage 'Checkout'
+
+  git 'https://github.com/Nischaybl18/flask-rest.git'
+        
+  stage 'Package Docker image'
+
+  def img = docker.build('flask-app:latest', '.')
+
+  stage 'Publish'
+  docker.withRegistry('https://hub.docker.com', 'nischaybl18') {
+     img.push('latest')
   }
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh """
-        docker build -t nischaybl18/flaskapp:latest .
-        """
-      }
-    }
-    stage('Login') {
-      steps {
-        sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-      }
-    }
-    stage('Push') {
-      steps {
-        sh "docker push nischaybl18/flaskapp:latest"
-      }
-    }
-  }
-  post {
-    always {
-      sh "docker logout"
-    }
-  }
+
 }
