@@ -1,2 +1,2 @@
-Flask
+flask>0.9
 pip install -U flask
