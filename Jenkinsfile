@@ -11,18 +11,18 @@ pipeline {
     }
     stage('Login') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
       }
     }
     stage('Push') {
       steps {
-        sh 'docker push nischaybl18/flaskapp:latest'
+        sh "docker push nischaybl18/flaskapp:latest"
       }
     }
   }
   post {
     always {
-      sh 'docker logout'
+      sh "docker logout"
     }
   }
 }
