@@ -6,7 +6,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh "docker build -t nischaybl18/flaskapp:latest ."
+        sh """
+        docker build -t nischaybl18/flaskapp:latest .
+        """
       }
     }
     stage('Login') {
