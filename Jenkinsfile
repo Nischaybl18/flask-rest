@@ -32,19 +32,18 @@ pipeline{
         stage('Deploy'){
             steps{
             script{
-                 sshagent(['ubuntu']) {
-                    sh "scp -o StrictHostKeyChecking=no deployment.yaml services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
-                    script{
-                        try{
-                            sh "ssh ubuntu@ip-172-31-29-251 'kubectl apply -f .'"
-                        }
-                        catch(error){
-                            sh "ssh ubuntu@ip-172-31-29-251 kubectl create -f ."
-                        }
-                    }
-                   }
+                sshagent(['k8s-ma']) {
+    			sh "scp -o StrictHostKeyChecking=no services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
+                    	script{
+                        	try{
+                            		sh "ssh ubuntu@ip-172-31-29-251 kubectl apply -f ."
+                        	}catch(error){
+                            		sh "ssh ubuntu@ip-172-31-29-251 kubectl create -f ."
+                        	}
+                    	}
+               	 }
 
-            }
+          }
 /*
                 configs: '', kubeConfig: [path: ''], kubeconfigId: 'k8s', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
  */
