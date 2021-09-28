@@ -1,30 +1,56 @@
-pipeline {
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('nischaybl18-dockerhub')
-  }
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh """
-        docker build -t nischaybl18/flaskapp:latest .
-        """
-      }
+pipeline{
+    agent any
+
+    environment{
+        dockerImage = ''
+        registry = 'nischaybl18/flaskapp'
+        registryCredential = 'nischaybl18-dockerhub'
     }
-    stage('Login') {
-      steps {
-        sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
-      }
-    }
-    stage('Push') {
-      steps {
-        sh "docker push nischaybl18/flaskapp:latest"
-      }
-    }
-  }
-  post {
-    always {
-      sh "docker logout"
-    }
-  }
+    stages{
+        stage('GIT Clone'){
+            steps{
+                git credentialsId: 'nischaybl18-github', url: 'https://github.com/Nischaybl18/flask-rest.git'
+            }
+		}
+        stage('Build'){
+            steps{
+                script{
+                    dockerImage = docker.build registry
+                }
+            }
+		}
+         stage('Publish'){
+            steps{
+                script{
+                      docker.withRegistry( '', registryCredential ) {
+                      dockerImage.push()
+                      }
+                }
+            }
+
+        }
+        stage('Deploy'){
+            steps{
+            script{
+                 sshagent(['ubuntu']) {
+                    sh "scp -o StrictHostKeyChecking=no services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
+                    script{
+                        try{
+                            sh "ssh ubuntu@ip-172-31-29-251 kubectl apply -f ."
+                        }
+                        catch(error){
+                            sh "ssh ubuntu@ip-172-31-29-251 kubectl create -f ."
+                        }
+                    }
+                   }
+
+            }
+/*
+                configs: '', kubeConfig: [path: ''], kubeconfigId: 'k8s', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+ */
+
+                 }
+        }
+
+   }
 }
