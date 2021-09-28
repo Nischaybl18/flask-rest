@@ -36,7 +36,7 @@ pipeline{
                     sh "scp -o StrictHostKeyChecking=no deployment.yaml services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
                     script{
                         try{
-                            sh "ssh ubuntu@ip-172-31-29-251 kubectl apply -f ."
+                            sh "ssh ubuntu@ip-172-31-29-251 'kubectl apply -f .'"
                         }
                         catch(error){
                             sh "ssh ubuntu@ip-172-31-29-251 kubectl create -f ."
