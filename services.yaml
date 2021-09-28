@@ -7,7 +7,6 @@ spec:
     app: flaskapp
   ports:
   - protocol: TCP
-    nodeport: 30081
     port: 80
     targetPort: 8080
-  type: Nodeport
+  type: LoadBalancer
