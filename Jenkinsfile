@@ -33,7 +33,7 @@ pipeline{
             steps{
             script{
                  sshagent(['ubuntu']) {
-                    sh "scp -o StrictHostKeyChecking=no services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
+                    sh "scp -o StrictHostKeyChecking=no deployment.yaml services.yaml pods.yaml ubuntu@ip-172-31-29-251:/home/ubuntu/"
                     script{
                         try{
                             sh "ssh ubuntu@ip-172-31-29-251 kubectl apply -f ."
