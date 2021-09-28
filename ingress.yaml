@@ -4,7 +4,7 @@ metadata:
   name: path-ingress
 spec:
 	rules:
-	  - host: localhost
+	  - host: localhost:32316
 			http:
 			paths:
 			- backend:
