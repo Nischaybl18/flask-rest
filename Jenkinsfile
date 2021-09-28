@@ -41,7 +41,7 @@ pipeline{
                             		sh "ssh ubuntu@ip-172-31-29-251 kubectl create -f ."
                         	}
                     	}
-               }
+               	 }
         }
 /*
                 configs: '', kubeConfig: [path: ''], kubeconfigId: 'k8s', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
