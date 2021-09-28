@@ -1,5 +1,5 @@
 # In the first part of our Dockerfile, we define the base Docker Image we want to use for the container.
-FROM python:3.8
+FROM python:3.8.10
 
 # We add Python to our Docker Image
 RUN apk add --update python py-pip
