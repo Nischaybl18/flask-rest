@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: path-ingress
 spec:
-	rules:
-	  - host: localhost
-			http:
-			paths:
-			- backend:
-				serviceName: flaskapp
-				servicePort: 8080
+  rules:
+   - host: test.example.com
+	http:
+	paths:
+   - backend:
+	serviceName: flaskapp
+	servicePort: 8080
 				
