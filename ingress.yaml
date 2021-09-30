@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: ingress-nginx
 spec:
   rules:
- ## - host: host1.domain.ext
+  - host: flash.example.com
     http:
       paths:
       - pathType: Prefix
