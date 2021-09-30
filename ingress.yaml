@@ -16,4 +16,3 @@ spec:
             name: flaskapp
             port:
               number: 5678
-~
