@@ -5,9 +5,9 @@ metadata:
 spec:
   rules:
    - host: test.example.com
-	http:
-	paths:
+      http:
+      paths:
    - backend:
-	serviceName: flaskapp
-	servicePort: 8080
+      serviceName: flaskapp
+      servicePort: 8080
 				
