@@ -15,4 +15,4 @@ spec:
           service:
             name: flaskapp
             port:
-              number: 5678
+              number: 5000
