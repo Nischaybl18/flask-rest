@@ -6,11 +6,11 @@ metadata:
     kubernetes.io/ingress.class: ingress-nginx
 spec:
   rules:
-  - host: flash.example.com
+  - host: flask.example.com
     http:
       paths:
       - pathType: Prefix
-        path: "/flash"
+        path: "/flask"
         backend:
           service:
             name: flaskapp
