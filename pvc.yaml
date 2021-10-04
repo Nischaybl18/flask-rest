@@ -7,7 +7,7 @@ spec:
     accessModes:
       - ReadWriteOnce
     resources:
-      resource:
+      requests:
         storage: 2Gi
     selector:
       matchLabels:
