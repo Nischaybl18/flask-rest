@@ -5,10 +5,10 @@ metadata:
   labels:
       volume: test	
 spec: 
-	storageClassName: local
-	capacity:
-		storage: 10Gi
-	accessModes:
- 		- ReadWriteOnce
-	hostPath:
-		path: /app/local
+    storageClassName: local
+    capacity:
+      storage: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    hostPath:
+      path: /app/local
